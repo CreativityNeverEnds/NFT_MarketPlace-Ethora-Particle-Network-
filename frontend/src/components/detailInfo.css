@@ -1,0 +1,15 @@
+.DetailInfo_home {
+    width: 100%;
+    color: white;
+    text-align: center;
+    align-items: center;
+}
+
+.DetailInfo_title {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.DetailInfo_email {
+    color: black;
+}

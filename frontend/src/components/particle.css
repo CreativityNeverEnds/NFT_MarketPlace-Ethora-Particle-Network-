@@ -1,0 +1,46 @@
+.login_section {
+    width: '100%';
+    display:'block';
+}
+
+.login_button {
+    width: 100%;
+    background-color: rgb(148, 7, 214);
+    height: 55px;
+    border-radius: 10px;
+    font-size: 22px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.login_status {
+    font-size: 22px;
+    font-family:'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+.button_section {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.connect_button {
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(151, 38, 216);
+}
+
+.connect_button:hover {
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(183, 0, 255);
+}
+
+.Detail_container {
+    width: calc(100% - 300px);
+    margin-top: 20px;
+}
