@@ -1,0 +1,38 @@
+.MainPage {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    background-color: var(--dl-color-gray-900);
+}
+  
+.MainPage_content {
+    min-height: calc(100vh - 204px);
+    width: 100%;
+}
+
+.MainPage_container {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+.MainPage_app {
+    width: 240px;
+    height: 240px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+}
+
+.MainPage_app:hover {
+    width: 240px;
+    height: 240px;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+}

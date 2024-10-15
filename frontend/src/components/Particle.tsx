@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useEthereum, useConnect, useAuthCore } from "@particle-network/authkit";
 import { ethers, Eip1193Provider } from "ethers"; // Eip1193Provider is the interface for the injected BrowserProvider
 
-import Header from "./Header";
+import TitleHeader from "./TitleHeader";
 
 // Import the utility functions
 import { formatBalance, truncateAddress } from "../utils/utils";
@@ -149,13 +149,12 @@ const Particle: React.FC = () => {
         }
     };
 //////////////////////////////////////////////////
-    console.log(userInfo)
-    console.log(userInfo_meta)
+
 ////// The UI
     return (
-        <div className="min-h-screen flex flex-col items-center justify-between p-8 bg-black text-white">
-            <Header />
-            <main className="flex-grow flex flex-col items-center w-full max-w-6xl mx-auto">
+        <div className="min-h-screen flex flex-col items-center justify-between bg-black text-white">
+            <TitleHeader />
+            <main className="login_main">
                 {(!userInfo && !userInfo_meta) && 
                     <div style={{width:'300px', justifyContent:'center'}} className="flex-grow flex flex-col justify-center">
                         <div className="bg-gray-800 p-3 rounded-lg shadow-lg max-w-sm mx-auto mb-4">
@@ -165,7 +164,7 @@ const Particle: React.FC = () => {
                         </div>
                         <div className="login_section">
                             <button className="login_button" onClick={handleLogin}>
-                                Sign in with Particle
+                                Authenticate via Particle
                             </button>
                             <button className="login_button" onClick={handleMetaMask}>
                                 Authenticate via MetaMask
@@ -174,8 +173,8 @@ const Particle: React.FC = () => {
                     </div>
                 }
                 {(userInfo && !userInfo_meta) && (
-                    <div style={{width:'100%', display:'flex'}}>
-                        <div style={{width:'300px', marginTop:'40px'}}>
+                    <div className="loginpage">
+                        <div className="loginstatepage">
                             <div className="bg-gray-800 p-3 rounded-lg shadow-lg max-w-sm mx-auto mb-4">
                                 <h2 className="login_status">
                                     Status: {connectionStatus}
@@ -187,15 +186,18 @@ const Particle: React.FC = () => {
                                         Connection Info
                                     </h2>
                                     <h2 className="text-lg font-semibold mb-2 text-white">
+                                        Wallet: Particle Wallet
+                                    </h2>
+                                    <h2 className="text-lg font-semibold mb-2 text-white">
                                         Address: <code>{truncateAddress(address || "")}</code>
                                     </h2>
-                                    <h3 className="text-lg mb-2 text-gray-400">
+                                    <h2 className="text-lg font-semibold mb-2 text-white">
                                         Chain: {chainInfo.name}
-                                    </h3>
+                                    </h2>
                                     <div className="flex items-center">
-                                        <h3 className="text-lg font-semibold text-purple-400 mr-2">
+                                        <h2 className="text-lg font-semibold mb-2 text-white">
                                             Balance: {balance} {chainInfo.nativeCurrency.symbol}
-                                        </h3>
+                                        </h2>
                                         <button
                                             className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center"
                                             onClick={fetchBalance}
@@ -212,13 +214,13 @@ const Particle: React.FC = () => {
                             </div>
                         </div>
                         <div className="Detail_container">
-                            <DetailInfo />
+                            <DetailInfo address = { address }/>
                         </div>
                     </div>
                 )}
                 {(!userInfo && userInfo_meta) && (
-                    <div style={{width:'100%', display:'flex'}}>
-                        <div style={{width:'300px', marginTop:'40px'}}>
+                    <div className="loginpage">
+                        <div className="loginstatepage">
                             <div className="bg-gray-800 p-3 rounded-lg shadow-lg max-w-sm mx-auto mb-4">
                                 <h2 className="login_status">
                                     Status: {"connected"}
@@ -230,15 +232,18 @@ const Particle: React.FC = () => {
                                         Connection Info
                                     </h2>
                                     <h2 className="text-lg font-semibold mb-2 text-white">
+                                        Wallet: MetaMask Wallet
+                                    </h2>
+                                    <h2 className="text-lg font-semibold mb-2 text-white">
                                         Address: <code>{truncateAddress(userInfo_meta || "")}</code>
                                     </h2>
-                                    <h3 className="text-lg mb-2 text-gray-400">
+                                    <h2 className="text-lg font-semibold mb-2 text-white">
                                         Chain: {chainInfo.name}
-                                    </h3>
+                                    </h2>
                                     <div className="flex items-center">
-                                        <h3 className="text-lg font-semibold text-purple-400 mr-2">
+                                        <h2 className="text-lg font-semibold mb-2 text-white">
                                             Balance: {balance} {chainInfo.nativeCurrency.symbol}
-                                        </h3>
+                                        </h2>
                                         <button
                                             className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center"
                                             onClick={MetaBalance}
@@ -255,7 +260,7 @@ const Particle: React.FC = () => {
                             </div>
                         </div>
                         <div className="Detail_container">
-                            <DetailInfo />
+                            <DetailInfo address = { userInfo_meta }/>
                         </div>
                     </div>
                 )}

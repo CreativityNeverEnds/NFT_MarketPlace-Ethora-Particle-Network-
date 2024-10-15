@@ -3,13 +3,45 @@
     color: white;
     text-align: center;
     align-items: center;
+    margin-top: 20px;
 }
 
 .DetailInfo_title {
     font-size: 26px;
     font-weight: 700;
+    margin-bottom: 20px;
 }
 
-.DetailInfo_email {
+.DetailInfo_content{
+    width: 100%;
+    display: block;
+}
+
+.DetailInfo_input{
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
     color: black;
+}
+
+.DetailInfo_btnset{
+    width: 100%;
+}
+
+.DetailInfo_button{
+    width: 40%;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(151, 38, 216);
+    margin: 5%;
+}
+
+.DetailInfo_button:hover {
+    width: 40%;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(183, 0, 255);
+    margin: 5%;
 }

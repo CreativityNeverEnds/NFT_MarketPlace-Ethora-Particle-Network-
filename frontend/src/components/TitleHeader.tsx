@@ -1,4 +1,4 @@
-const Header = () => {
+const TitleHeader = () => {
   const headContent = {
     title: "Particle Auth Core App",
     metaDescription: "Particle Auth Code demo in Next js",
@@ -10,7 +10,7 @@ const Header = () => {
   };
 
   const subHeading =
-    "Super WEb appication using Ethora.com and Particle Network.";
+    "Super Web appication using Ethora.com and Particle Network.";
 
   return (
     <>
@@ -19,12 +19,12 @@ const Header = () => {
         <meta name="description" content={headContent.metaDescription} />
         <link rel="icon" href={headContent.favicon} />
       </header>
-      <h1 className="text-4xl mt-4 font-bold mb-12 text-center flex items-center justify-center">
+      <h1 className="text-4xl mt-12 font-bold mb-3 text-center flex items-center justify-center p-3">
         {mainHeading.text}
       </h1>
-      <h2 className="text-xl font-bold mb-6">{subHeading}</h2>
+      <h2 className="text-xl font-bold mb-3 p-4">{subHeading}</h2>
     </>
   );
 };
 
-export default Header;
+export default TitleHeader;

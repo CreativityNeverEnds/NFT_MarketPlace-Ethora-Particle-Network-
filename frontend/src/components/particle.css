@@ -1,3 +1,24 @@
+.login_main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.loginpage{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loginstatepage{
+    width: 300px;
+    margin: 40px;
+}
+
 .login_section {
     width: '100%';
     display:'block';
@@ -27,20 +48,49 @@
 }
 
 .connect_button {
-    width: 100px;
+    width: 180px;
     height: 35px;
     border-radius: 5px;
     background-color: rgb(151, 38, 216);
 }
 
 .connect_button:hover {
-    width: 100px;
+    width: 180px;
     height: 35px;
     border-radius: 5px;
     background-color: rgb(183, 0, 255);
 }
 
 .Detail_container {
-    width: calc(100% - 300px);
-    margin-top: 20px;
+    width: 450px;
+    margin: 20px;
+}
+
+@media (max-width: 920px) {
+    .loginpage{
+        width: 100%;
+        display: block;
+    }
+
+    .loginstatepage{
+        width: 300px;
+        margin-top: 40px;
+        margin-left: calc(50% - 150px);
+    }
+
+    .Detail_container {
+        width: 450px;
+        margin-top: 20px;
+        margin-left: calc(50% - 225px);
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 470px) {
+    .Detail_container {
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 0px;
+        margin-bottom: 80px;
+    }
 }

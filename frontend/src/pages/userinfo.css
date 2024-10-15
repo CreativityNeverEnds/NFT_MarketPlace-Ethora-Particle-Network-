@@ -1,0 +1,181 @@
+.UserInfo {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    background-color: var(--dl-color-gray-900);
+}
+  
+.UserInfo_content {
+    min-height: calc(100vh - 204px);
+    width: 100%;
+    display: block;
+}
+
+.UserInfo_left {
+    display: block;
+    width: 30%;
+    align-self: baseline;
+    margin-top: 30px;
+}
+
+.UserInfo_avatar {
+    width: 160px;
+    height: 150px;
+    border-radius: 40px;
+}
+
+.UserInfo_avatar_button{
+    min-width: 160px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(221, 221, 221);
+    margin: 10px;
+}
+
+.UserInfo_right {
+    display: block;
+    width: 70%;
+    padding-right: 150px;
+}
+
+.UserInfo_change_btn{
+    width: 250px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(221, 221, 221);
+    margin: 10px;
+    text-align: center;
+    align-content: center;
+    margin-top: 20px;
+}
+
+.UserInfo_return_btn{
+    width: 120px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(221, 221, 221);
+    margin: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+.UserInfo_title {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: rgb(58, 58, 58);
+}
+
+.UserInfo_infos {
+    display: flex;
+}
+
+.UserInfo_input{
+    width: calc(100% - 150px);
+    padding: 8px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: rgb(46, 46, 46);
+}
+
+.UserInfo_modaltitle {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgb(46, 46, 46);
+}
+
+.UserInfo_modal_input{
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: rgb(46, 46, 46);
+}
+
+.UserInfo_modal_button{
+    width: 40%;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(221, 221, 221);
+    margin: 10px;
+}
+
+.UserInfo_modal_button_cancel{
+    width: 40%;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(221, 221, 221);
+    float: right;
+    margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .UserInfo_avatar {
+        width: 140px;
+        height: 130px;
+        border: 10px;
+    }
+    
+    .UserInfo_avatar_button{
+        min-width: 140px;
+        height: 35px;
+        border-radius: 5px;
+        background-color: rgb(221, 221, 221);
+        margin: 10px;
+    }
+
+    .UserInfo_right {
+        display: block;
+        width: 100%;
+        padding-right: 0px;
+    }
+    
+}
+
+@media (max-width: 540px) {
+    .UserInfo_left {
+        display: block;
+        width: 30%;
+        align-self: baseline;
+    }
+
+    .UserInfo_avatar {
+        width: 160px;
+        height: 150px;
+        border: 10px;
+    }
+    
+    .UserInfo_avatar_button{
+        min-width: 160px;
+        height: 35px;
+        border-radius: 5px;
+        background-color: rgb(221, 221, 221);
+        margin: 10px;
+    }
+    
+    .UserInfo_infos {
+        display: block;
+    }
+
+    .UserInfo_left {
+        display: block;
+        width: 100%;
+        align-self: baseline;
+    }
+
+    .UserInfo_right {
+        display: block;
+        width: 100%;
+        padding-right: 0px;
+    }
+}

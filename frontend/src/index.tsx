@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SnackbarProvider } from 'notistack';
 
 // Particle imports
 import { ParticleAuthkit } from "./components/Authkit";
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <ParticleAuthkit>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <SnackbarProvider maxSnack={3}>
+          <App />
+        </SnackbarProvider>
       </QueryClientProvider>
     </ParticleAuthkit>
   </React.StrictMode>
