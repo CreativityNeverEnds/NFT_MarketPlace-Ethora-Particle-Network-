@@ -39,6 +39,7 @@ const createNewDM = async (req, res) => {
 const getMyDM = async (req,res) => {
     try {
         const myid = req.body.address;
+        
         if ( !myid  ) {
             return res.status(400).json({ message: "Request Error!" });
         } else {
@@ -48,12 +49,14 @@ const getMyDM = async (req,res) => {
                     { to: myid }
                 ]
             });
-            const show_DM = my_DM.filter(dm => dm.showstate === true)
-            // Send success response      
-            return res.status(201).json({
-                message: "Message saved successfully",
-                data: show_DM,
-            });
+            if(!my_DM){
+                const show_DM = my_DM.filter(dm => dm.showstate === true)
+                // Send success response      
+                return res.status(201).json({
+                    message: "Message saved successfully",
+                    data: show_DM,
+                });
+            }
         }
     } catch (error) {
         console.error("Error getting message:", error);

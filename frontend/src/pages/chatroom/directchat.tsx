@@ -27,7 +27,7 @@ interface User {
     _id: string;
 }
 
-const socket = io('http://localhost:4000'); // Your WebSocket server URL
+const socket = io(process.env.REACT_APP_SERVER_URL); // Your WebSocket server URL
 
 export default function DirectChatRoom (props: any) {
     const { address } = useEthereum();
@@ -50,7 +50,7 @@ export default function DirectChatRoom (props: any) {
         // Fetch the name of the user from the server
         try {
             const res = await axios.post(
-                `${process.env.REACT_APP_SERVER_URL}/users/get_name`,
+                `${process.env.REACT_APP_SERVER_URL}/api/users/get_name`,
                 {addresses},
                 { withCredentials: true}
             );
@@ -85,7 +85,7 @@ export default function DirectChatRoom (props: any) {
 
             if (userAddress) {
                 const res = await axios.post(
-                    `${process.env.REACT_APP_SERVER_URL}/dmessages/get_my_message`,
+                    `${process.env.REACT_APP_SERVER_URL}/api/dmessages/get_my_message`,
                     { address: userAddress },
                     { withCredentials: true }
                 );
@@ -141,7 +141,7 @@ export default function DirectChatRoom (props: any) {
             if(currentAddress && dmessage.from === currentAddress){
                 // Save the message to the server
                 const new_dm = {from:dmessage.from, to:chattingUser.walletAddress, message:dmessage.text, sendtime:formattedDateTime}
-                await axios.post( `${process.env.REACT_APP_SERVER_URL}/dmessages/create_dmessage`, new_dm, { withCredentials: true } );
+                await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/dmessages/create_dmessage`, new_dm, { withCredentials: true } );
     
                 // Fetch all messages from the server and update the local state
                 fetchAllMessages();
@@ -164,7 +164,7 @@ export default function DirectChatRoom (props: any) {
         setBlockOne(chattingUser.walletAddress)
         if(currentAddress){
             const delete_info = {sender:chattingUser.walletAddress, receiver:currentAddress}
-            await axios.post( `${process.env.REACT_APP_SERVER_URL}/dmessages/block_user`, delete_info, { withCredentials: true } );
+            await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/dmessages/block_user`, delete_info, { withCredentials: true } );
         }
         setChattingUser('')
     }

@@ -90,7 +90,7 @@ const Particle: React.FC = () => {
 
             // making a post request to our 'request-message' endpoint
             const { data } = await axios.post(
-                `${process.env.REACT_APP_SERVER_URL}/request-message`,
+                `${process.env.REACT_APP_SERVER_URL}/api/request-message`,
                 user_data,
                 {
                 headers: {
@@ -103,12 +103,12 @@ const Particle: React.FC = () => {
             const signature = await signMessageAsync({ message });
         
             const res = await axios.post(
-                `${process.env.REACT_APP_SERVER_URL}/verify`,
+                `${process.env.REACT_APP_SERVER_URL}/api/verify`,
                 { message, signature, },
                 { withCredentials: true } // set cookie from Express server
             );
             
-            const userData = await axios(`${process.env.REACT_APP_SERVER_URL}/authenticate`, {
+            const userData = await axios(`${process.env.REACT_APP_SERVER_URL}/api/authenticate`, {
                 withCredentials: true,
             })
             
@@ -139,7 +139,7 @@ const Particle: React.FC = () => {
     const handleLogOut = async () => {
         try {
             // If user uses MetaMask for sign in
-            await axios(`${process.env.REACT_APP_SERVER_URL}/logout`, {
+            await axios(`${process.env.REACT_APP_SERVER_URL}/api/logout`, {
                 withCredentials: true,
             });
             setUserInfo_Meta('')

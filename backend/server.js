@@ -10,7 +10,7 @@ const msgRoutes = require("./routes/message.route.js");
 const chanRoutes = require("./routes/channel.route.js");
 const dmsgRoutes = require("./routes/dmessage.route.js");
 const Moralis = require('moralis').default;
-
+const path =  require('path');
 // to use our .env variables
 require('dotenv').config();
 
@@ -27,6 +27,8 @@ app.use(cors({
     origin: ['http://localhost:3000'],
     credentials: true,
 }));
+
+
 
 // Create Socket.io server
 const io = socketIo(server, {
@@ -90,7 +92,7 @@ io.on('connection', (socket) => {
 });
 
 // Request message to be signed by client
-app.post('/request-message', async (req, res) => {
+app.post('/api/request-message', async (req, res) => {
     const { address, chain, network } = req.body;
     try {
         const message = await Moralis.Auth.requestMessage({
@@ -107,7 +109,7 @@ app.post('/request-message', async (req, res) => {
 });
 
 // Verify signature and create JWT token
-app.post('/verify', async (req, res) => {
+app.post('/api/verify', async (req, res) => {
     try {
         const { message, signature } = req.body;
         const { address, profileId } = (
@@ -136,7 +138,7 @@ app.post('/verify', async (req, res) => {
 });
 
 // Authenticate user using JWT
-app.get('/authenticate', async (req, res) => {
+app.get('/api/authenticate', async (req, res) => {
     const token = req.cookies.jwt;
     if (!token) return res.sendStatus(403); // Unauthorized
 
@@ -149,7 +151,7 @@ app.get('/authenticate', async (req, res) => {
 });
 
 // Logout user by clearing JWT cookie
-app.get('/logout', async (req, res) => {
+app.get('/api/logout', async (req, res) => {
     try {
         res.clearCookie('jwt');
         return res.sendStatus(200);
@@ -159,24 +161,28 @@ app.get('/logout', async (req, res) => {
 });
 
 // User routes
-app.use("/users", userRoutes);
+app.use("/api/users", userRoutes);
 
 // Message routes
-app.use("/messages", msgRoutes);
+app.use("/api/messages", msgRoutes);
 
 // Channel routes
-app.use("/channels", chanRoutes);
+app.use("/api/channels", chanRoutes);
 
 // Direct Message routes
-app.use("/dmessages", dmsgRoutes);
+app.use("/api/dmessages", dmsgRoutes);
+
+// app.use(express.static(path.join(__dirname, "build")));
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 
 // Start server function with MongoDB and Moralis connection
 const startServer = async () => {
     await Moralis.start({
         apiKey: process.env.MORALIS_API_KEY,
     });
-
-    mongoose.connect(process.env.MONGO_URL)
+    mongoose.connect("mongodb+srv://superengineer199885:I1ZX9lcGM3M2ANWF@cluster0.ev4fb.mongodb.net/marketplace")
         .then(() => {
             console.log("MONGODB CONNECTED");
             // Start the HTTP server after successful MongoDB connection

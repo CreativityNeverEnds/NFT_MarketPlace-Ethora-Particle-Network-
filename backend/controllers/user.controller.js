@@ -115,7 +115,6 @@ const getName = async (req, res) => {
     try {
         // Validate input data (optional but recommended)
         const walletAddresses = req.body.addresses;
-        
         if (!walletAddresses) {
             return res.status(400).json({ message: "User wallet address is required." });
         }
@@ -141,6 +140,7 @@ const getName = async (req, res) => {
 
 const getAllUser = async (req, res) => {
     try {
+        console.log("users","users")
         const users = await UserModel.find(); // Fetch all users
         return res.status(200).json({
             message: "Users retrieved successfully",

@@ -16,7 +16,7 @@ export default function UserInfo () {
 
     const getuserinfo = async(user_wallet_address:any) => {
         try {
-            const res = await axios.post( `${process.env.REACT_APP_SERVER_URL}/users/getuserinfo`, {user_wallet_address} );
+            const res = await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/users/getuserinfo`, {user_wallet_address} );
             setUserDetail(res.data.user)
             return res.data
         } catch (error) {
@@ -99,7 +99,7 @@ export default function UserInfo () {
             );
         } else {
             try {
-                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/update_data`, updateDetails);
+                const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/update_data`, updateDetails);
                 enqueueSnackbar(res.data.message, { variant: 'success',
                     anchorOrigin: {
                     vertical: 'top',

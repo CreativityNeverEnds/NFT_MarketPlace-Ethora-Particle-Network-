@@ -37,7 +37,7 @@ interface MultiChatRoomProps {
     setChattingUser: (type: string) => void; // Adjust the type as necessary
 }
 
-const socket = io('http://localhost:4000'); // Your WebSocket server URL
+const socket = io(process.env.REACT_APP_SERVER_URL); // Your WebSocket server URL
 
 const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
     const { address } = useEthereum();
@@ -62,7 +62,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
         // Fetch the name of the user from the server
         try {
             const res = await axios.post(
-                `${process.env.REACT_APP_SERVER_URL}/users/get_name`,
+                `${process.env.REACT_APP_SERVER_URL}/api/users/get_name`,
                 {addresses},
                 { withCredentials: true}
             );
@@ -84,7 +84,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
     const fetchAlluser = async() => {
         try {
             const res = await axios.get(
-                `${process.env.REACT_APP_SERVER_URL}/users/get_all_user`,
+                `${process.env.REACT_APP_SERVER_URL}/api/users/get_all_user`,
                 { withCredentials: true}
             );
             setAllUsers(res.data.data)
@@ -97,7 +97,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
         const fetchMessages = async () => {
             try {
                 const res = await axios.post(
-                    `${process.env.REACT_APP_SERVER_URL}/messages/get_message`,
+                    `${process.env.REACT_APP_SERVER_URL}/api/messages/get_message`,
                     { type: "All" },
                     { withCredentials: true }
                 );
@@ -146,10 +146,10 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
             if(currentAddress && message.from === currentAddress){
                 // Save the message to the server
                 const newMsg = {from:message.from, message:message.text, roomID:'All', sendtime:formattedDateTime}
-                await axios.post( `${process.env.REACT_APP_SERVER_URL}/messages/save_message`, {newMsg}, { withCredentials: true } );
+                await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/messages/save_message`, {newMsg}, { withCredentials: true } );
     
                 // Fetch all messages from the server and update the local state
-                const res = await axios.post( `${process.env.REACT_APP_SERVER_URL}/messages/get_message`, {type:"All"}, { withCredentials: true } );
+                const res = await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/messages/get_message`, {type:"All"}, { withCredentials: true } );
                 setMessages(res.data.data)
             }
         });
@@ -193,7 +193,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
             if(address && !meta_address) {
                 const create_dm = {from:address, to:userdatailInfo.walletAddress, message:"Hello", sendtime:formattedDateTime}  
                 try {
-                    await axios.post( `${process.env.REACT_APP_SERVER_URL}/dmessages/create_dmessage`, create_dm, { withCredentials: true } );
+                    await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/dmessages/create_dmessage`, create_dm, { withCredentials: true } );
                     setChattype("DirectChat")
                     setChattingUser(userdatailInfo)
                 } catch (error:any) {
@@ -216,7 +216,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
             } else if(!address && meta_address) {
                 const create_dm = {from:meta_address, to:userdatailInfo.walletAddress, message:"Hello", sendtime:formattedDateTime}
                 try {
-                    await axios.post( `${process.env.REACT_APP_SERVER_URL}/dmessages/create_dmessage`, create_dm, { withCredentials: true } );
+                    await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/dmessages/create_dmessage`, create_dm, { withCredentials: true } );
                     setChattype("DirectChat")
                     setChattingUser(userdatailInfo)
                 } catch (error:any) {
@@ -258,10 +258,10 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
     }
 
     const filteredUsers = filtertype === 'walletAddress'
-    ? allUsers.filter(item =>
+    ? allUsers?.filter(item =>
         item.walletAddress.toLowerCase().includes(searchText.toLowerCase())
       )
-    : allUsers.filter(item =>
+    : allUsers?.filter(item =>
         `${item.firstName} ${item.secondName}`.toLowerCase().includes(searchText.toLowerCase())
       );
 
@@ -281,7 +281,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
                     </button>
                 </div>
                 {
-                    filteredUsers.map((user, index) => {
+                    filteredUsers?.map((user, index) => {
                         // Check if the user is active
                         const isActive = activeUsers.includes(user.walletAddress); // Assuming user has a walletAddress property
                         return (
@@ -317,7 +317,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
                     </button>
                 </div>
                 <div className="multichat_message_content">
-                    {messages.map((msg, index) => {
+                    {messages?.map((msg, index) => {
                         const isActive = activeUsers.includes(msg.from); // Assuming user has a walletAddress property
                         return (
                             <div key={index} className="multichat_message_message">

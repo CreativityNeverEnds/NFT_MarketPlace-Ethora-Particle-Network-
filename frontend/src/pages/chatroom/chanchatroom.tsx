@@ -7,7 +7,7 @@ import { truncateAddress } from "../../utils/utils";
 import {  useSnackbar } from "notistack";
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:4000');
+const socket = io(process.env.REACT_APP_SERVER_URL);
 
 interface User {
   email: string;
@@ -42,7 +42,7 @@ export default function ChanChatRoom () {
       try {
         if(address && !meta_address){
           const res = await axios.post(
-              `${process.env.REACT_APP_SERVER_URL}/channels/save_new_channel`,
+              `${process.env.REACT_APP_SERVER_URL}/api/channels/save_new_channel`,
               {data: {channelname: channelname, creator: address}},
               { withCredentials: true}
           );
@@ -55,7 +55,7 @@ export default function ChanChatRoom () {
         }
         else if(!address && meta_address){
           const res = await axios.post(
-              `${process.env.REACT_APP_SERVER_URL}/channels/save_new_channel`,
+              `${process.env.REACT_APP_SERVER_URL}/api/channels/save_new_channel`,
               {data: {channelname: channelname, creator: meta_address}},
               { withCredentials: true}
           );
@@ -99,14 +99,14 @@ export default function ChanChatRoom () {
       try {
         if(address && !meta_address){
           const res = await axios.post(
-              `${process.env.REACT_APP_SERVER_URL}/channels/join_channel`,
+              `${process.env.REACT_APP_SERVER_URL}/api/channels/join_channel`,
               {data: {channelname: e.channelname, creator: e.creator, myid:address}},
               { withCredentials: true}
           );
         }
         else if(!address && meta_address){
           const res = await axios.post(
-              `${process.env.REACT_APP_SERVER_URL}/channels/join_channel`,
+              `${process.env.REACT_APP_SERVER_URL}/api/channels/join_channel`,
               {data: {channelname: e.channelname, creator: e.creator, myid:meta_address}},
               { withCredentials: true}
           );
@@ -140,7 +140,7 @@ export default function ChanChatRoom () {
   const fetchAllChannel = async() => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/channels/get_all_channel`,
+        `${process.env.REACT_APP_SERVER_URL}/api/channels/get_all_channel`,
         { withCredentials: true}
       );
       setAllChannels(res.data.data)
@@ -214,10 +214,10 @@ export default function ChanChatRoom () {
         if(enterroom){
           // Save the message to the server
           const newMsg = {from:data.username, message:data.message, roomID:enterroom, sendtime:formattedDateTime} 
-          await axios.post( `${process.env.REACT_APP_SERVER_URL}/messages/save_message`, {newMsg}, { withCredentials: true } );
+          await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/messages/save_message`, {newMsg}, { withCredentials: true } );
 
           // Fetch all messages from the server and update the local state
-          const res = await axios.post( `${process.env.REACT_APP_SERVER_URL}/messages/get_message`, {type:enterroom}, { withCredentials: true } );
+          const res = await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/messages/get_message`, {type:enterroom}, { withCredentials: true } );
           setMessages(res.data.data)
         }
       }
@@ -241,7 +241,7 @@ export default function ChanChatRoom () {
     // Fetch the name of the user from the server
     try {
       const res = await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/users/get_name`,
+          `${process.env.REACT_APP_SERVER_URL}/api/users/get_name`,
           {addresses},
           { withCredentials: true}
       );
@@ -272,7 +272,7 @@ export default function ChanChatRoom () {
       if(enterroom){
         try {
           const res = await axios.post(
-              `${process.env.REACT_APP_SERVER_URL}/messages/get_message`,
+              `${process.env.REACT_APP_SERVER_URL}/api/messages/get_message`,
               { type: enterroom },
               { withCredentials: true }
           );
@@ -294,7 +294,7 @@ export default function ChanChatRoom () {
       const userAddress = address || meta_address;
       if (userAddress) {
         await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/channels/leave_channel`,
+          `${process.env.REACT_APP_SERVER_URL}/api/channels/leave_channel`,
           { type: enterroom, myid: userAddress},
           { withCredentials: true }
         );
@@ -424,8 +424,8 @@ export default function ChanChatRoom () {
         </div>
         <Modal isOpen={isModalOpen} onClose={toggleModal}>
           <div className='channelModal_container'>
-            <div style={{fontSize:'18px', fontFamily:'sans-serif', marginLeft:'10px'}}>{allChannels.length} Channels</div>
-            {allChannels.map((channel, index) => {
+            <div style={{fontSize:'18px', fontFamily:'sans-serif', marginLeft:'10px'}}>{allChannels?.length} Channels</div>
+            {allChannels?.map((channel, index) => {
               return(
                 <div key={index} className='channelModal_item'>
                   <button className='channelModal_button' onClick={() => joinChannel(channel)}>
