@@ -53,7 +53,7 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
     const [userdatailInfo, setUserdatailInfo] = useState<User>();
     const { enqueueSnackbar } = useSnackbar();
     const setChattype = props.setChattype;
-    const setChattingUser = props.setChattin
+    const setChattingUser = props.setChattingUser
     const [searchText, setSearchText] = useState('');
     const [placefilter, setPlaceFilter] = useState('Wallet Address')
     const [filtertype, setFilterType] = useState('walletAddress')
@@ -191,27 +191,23 @@ const MultiChatRoom: React.FC<MultiChatRoomProps> = (props:any) => {
             const formattedDateTime = 
                 `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
             if(address && !meta_address) {
-                const create_dm = {from:address, to:userdatailInfo.walletAddress, message:"Hello", sendtime:formattedDateTime}  
+                const create_dm = {from:address, to:userdatailInfo.walletAddress, message:"Hello", sendtime:formattedDateTime}
+                console.log(create_dm)
                 try {
                     await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/dmessages/create_dmessage`, create_dm, { withCredentials: true } );
-                    setChattype("DirectChat")
                     setChattingUser(userdatailInfo)
-                } catch (error:any) {
-                    if(error.response.status === 400) {
-                      enqueueSnackbar(error.response.data.message, { variant: 'info',
-                        anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'center'
-                        }}
-                      );
-                    } else {
-                      enqueueSnackbar('An error occured. Please try again.', { variant: 'error',
-                        anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'center'
-                        }}
-                      );
+                    console.log(userdatailInfo, 'userdatailInfouserdatailInfouserdatailInfouserdatailInfo')
+                    console.log(props.chattingUser, 'props.chattingUserprops.chattingUserprops.chattingUser')
+                    if (props.chattingUser) {
+                        setChattype("DirectChat")
                     }
+                } catch (error:any) {
+                    enqueueSnackbar('An error occured. Please try again.', { variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'center'
+                        }}
+                    );
                 }
             } else if(!address && meta_address) {
                 const create_dm = {from:meta_address, to:userdatailInfo.walletAddress, message:"Hello", sendtime:formattedDateTime}

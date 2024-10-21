@@ -61,7 +61,7 @@ export default function ChatRoom () {
             localStorage.setItem("room_style", "DirectChat")
         }
     }
-    
+    console.log(chattingUser)
     return(
         <div className="ChatRoom">
             <PageHeader />

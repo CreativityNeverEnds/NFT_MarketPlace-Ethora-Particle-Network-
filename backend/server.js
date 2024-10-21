@@ -23,12 +23,11 @@ const server = http.createServer(app);
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(cors({
     origin: ['http://localhost:3000'],
     credentials: true,
 }));
-
-
 
 // Create Socket.io server
 const io = socketIo(server, {
@@ -36,7 +35,6 @@ const io = socketIo(server, {
     origin: '*',
   }
 });
-
 
 // Moralis configuration
 const config = {

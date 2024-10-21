@@ -55,7 +55,7 @@ export default function DirectChatRoom (props: any) {
                 { withCredentials: true}
             );
             const users: any = res.data.names;
-            setUserNames(users); 
+            setUserNames(users);
             const chatusers: User[] = res.data.names;
             const namesMap: { [key: string]: { firstName: string; secondName: string } } = {};
             chatusers.forEach(chatuser => {
@@ -65,7 +65,7 @@ export default function DirectChatRoom (props: any) {
                 };
             });
 
-            setChatNames(namesMap); 
+            setChatNames(namesMap);
         } catch (error) {
             console.error("Error fetching user name:", error);
         }
@@ -264,7 +264,7 @@ export default function DirectChatRoom (props: any) {
                                             {extractFirstLetter(chatNames[dmsg.from].firstName) + extractFirstLetter(chatNames[dmsg.from].secondName)}
                                         </div>
                                         : <div className={`multichat_message_avatar ${isActive ? 'multichat_message_avatar_live' : ''}`}>
-                                            {extractFirstLetter(dmsg.from)}
+                                            {'Me'}
                                         </div>
                                         } 
                                         <div className="multichat_message_text">

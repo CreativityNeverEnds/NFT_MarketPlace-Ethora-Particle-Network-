@@ -9,6 +9,8 @@ export default function DetailInfo(props:any){
     const [userDetails, setUserDetails] = useState({
         firstName: '',
         secondName: '',
+        email: '',
+        phoneNumber: '',
         walletAddress: address
     });
 
@@ -21,16 +23,29 @@ export default function DetailInfo(props:any){
         }));
     };
 
+    // Email validation function
+    const validateEmail = (email:any) => {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+        return emailPattern.test(email);
+    };
+
     // Handle OK button click
     const handleOk = async() => {
-        if (userDetails.firstName == '' || userDetails.secondName == '') {
+        if (userDetails.firstName === '' || userDetails.secondName === '' || userDetails.email === '' || userDetails.phoneNumber === '') {
             enqueueSnackbar('Please enter all fields.', { variant: 'error',
                 anchorOrigin: {
                 vertical: 'top',
                 horizontal: 'center'
                 }}
             );
-        } else {
+        } else if (!validateEmail(userDetails.email)) {
+            enqueueSnackbar('Please enter a valid email address.', { variant: 'error',
+                anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'center'
+                }}
+            )
+        }else {
             try {
                 const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login_data`, userDetails);
                 enqueueSnackbar(res.data.message, { variant: 'success',
@@ -64,6 +79,8 @@ export default function DetailInfo(props:any){
         setUserDetails({
             firstName: '',
             secondName: '',
+            email: '',
+            phoneNumber: '',
             walletAddress: address
         })
     }
@@ -88,6 +105,22 @@ export default function DetailInfo(props:any){
                     className="DetailInfo_input" 
                     placeholder="Second Name"
                     value={userDetails.secondName}
+                    onChange={handleChange}
+                />
+                <input 
+                    id="email" 
+                    type="email" 
+                    className="DetailInfo_input" 
+                    placeholder="name@example.com"
+                    value={userDetails.email}
+                    onChange={handleChange}
+                />
+                <input 
+                    id="phoneNumber" 
+                    type="text" 
+                    className="DetailInfo_input" 
+                    placeholder="Phone Number"
+                    value={userDetails.phoneNumber}
                     onChange={handleChange}
                 />
             </div>

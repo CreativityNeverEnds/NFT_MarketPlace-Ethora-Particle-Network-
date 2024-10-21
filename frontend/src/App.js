@@ -18,7 +18,7 @@ const config = createConfig({
 
 const router = createBrowserRouter([
   {
-    path: "/signin",
+    path: "/",
     element: <Signin />,
   },
   {
